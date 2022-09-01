@@ -1,0 +1,7 @@
+---
+title: "Assignment 1"
+author: "Tanner Mierow"
+date: "2022-09-01"
+output: html_document
+---
+We started from the bottom (no r knowledge) and now we here
