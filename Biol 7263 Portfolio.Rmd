@@ -4,3 +4,4 @@ author: "Tanner Mierow"
 date: "2022-09-01"
 output: html_document
 ---
+[Assignments](Assignments.html)
