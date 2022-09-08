@@ -4,7 +4,6 @@ author: "Tanner Mierow"
 date: "2022-09-01"
 output: html_document
 ---
-[Assignment1](Assignments/Assignment-1.htm cechl)  
 
 Hi Folks! My name is Tanner Mierow and I am currently a first year biology PhD student at the University of Tulsa!    
 
