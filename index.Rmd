@@ -26,7 +26,8 @@ Animals have to intake sensory information from their environment and use sensor
 
 | Date | Descriptive Name | Assignment Link |
 | :-- | :-- | :-- |
-| 09/01 | Homework 1 | [Assignment1](Assignments/Assignment-1.htm cechl) |  
-
+| 09/01 | Homework 1 | [Assignment1](Assignments/Assignment-1.htm cechl) | 
+| 09/08 | Homework 2 | (was this page, so no link)
+| 09/12 | Homework 3 | [Assignment3](Assignments/Assignment3.html)
 
 
