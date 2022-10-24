@@ -382,15 +382,15 @@ pre code {
 </div>
 <div id="choose-a-test-photo" class="section level2">
 <h2>Choose a test photo!</h2>
-<p><code>AcuityView requires an image that it will then render into the acuity you set it at, BUT this image needs to be a square where the dimensions are a power of two</code>
-<code>Resize(image, 512, 512)</code></p>
+<p><code>AcuityView requires an image that it will then render into the acuity you set it at, BUT this image needs to be a square where the dimensions are a power of two</code></p>
+<p><code>img &lt;- load.image(&#39;.../extdata/parrots.png&#39;)</code></p>
+<p><code>dim(img)</code></p>
+<p><code>img &lt;- resize(img, 110, 40)</code></p>
 </div>
 <div id="calculate-your-animals-acuity" class="section level2">
 <h2>Calculate your animal’s acuity</h2>
-<p><code>MRA --&gt; 1/CPD =</code></p>
-</div>
-<div id="run-acuity-view-with-your-now-resized-image" class="section level2">
-<h2>Run acuity view with your now resized image!</h2>
+<p><code>MRA --&gt; 1/CPD =</code> ` ## Run acuity view with your now
+resized image!</p>
 <p><code>AcuityView(photo = NULL, distance = 2, realWidth = 2, eyeResolutionX = 8.14, eyeResolutionY = NULL, plot = T, output = &quot;firstimage.jpg&quot; )</code></p>
 </div>
 <div id="seminar-assignment" class="section level2">

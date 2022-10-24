@@ -21,12 +21,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Choose a test photo! 
 `AcuityView requires an image that it will then render into the acuity you set it at, BUT this image needs to be a square where the dimensions are a power of two`
-`Resize(image, 512, 512)`
+
+`img <- load.image('.../extdata/parrots.png')`
+
+`dim(img)`
+
+`img <- resize(img, 110, 40)`
+
 
 ## Calculate your animal's acuity
 
 `MRA --> 1/CPD = `
-
+`
 ## Run acuity view with your now resized image! 
 
 `AcuityView(photo = NULL, distance = 2, realWidth = 2, eyeResolutionX = 8.14, eyeResolutionY = NULL, plot = T, output = "firstimage.jpg" )`
