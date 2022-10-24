@@ -1,0 +1,38 @@
+---
+title: "AcuityViewLesson"
+author: "Tanner Mierow"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Install packages
+`First thing we need to do is install the required packages and load them!!`
+`install.packages("AcuityView", "fftwtools", "imager")`
+
+## Load packages:
+
+`library(AcuityView)`
+`library(fftwtools)`
+`library(imager)`
+
+## Choose a test photo! 
+`AcuityView requires an image that it will then render into the acuity you set it at, BUT this image needs to be a square where the dimensions are a power of two`
+`Resize(image, 512, 512)`
+
+## Calculate your animal's acuity
+
+`MRA --> 1/CPD = `
+
+## Run acuity view with your now resized image! 
+
+`AcuityView(photo = NULL, distance = 2, realWidth = 2, eyeResolutionX = 8.14, eyeResolutionY = NULL, plot = T, output = "firstimage.jpg" )`
+
+## Seminar Assignment
+`1. Choose five animals from the databases given and calculate their acuity as MRA`
+`2. Choose an image that is applicable to each of your animals own ecology (1 image for each animal) and resize that image to 512x512 dimensions`
+`3. Create an output of your selected image at distance of 1 m, 2 m, and 3 m for your five animals`
+`4. Knit and publish R markdown file onto your website as "seminar 1 assignment"`
