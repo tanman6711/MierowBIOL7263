@@ -42,3 +42,12 @@ knitr::opts_chunk$set(echo = TRUE)
 `2. Choose an image that is applicable to each of your animals own ecology (1 image for each animal) and resize that image to 512x512 dimensions`
 `3. Create an output of your selected image at distance of 1 m, 2 m, and 3 m for your five animals`
 `4. Knit and publish R markdown file onto your website as "seminar 1 assignment"`
+
+## Files
+[Bird Database](https://drive.google.com/uc?export=download&id=1ZuFtT8MdXm8xR0kDhVohvpnD7pKvOv88)
+
+[Fish Database](https://drive.google.com/uc?export=download&id=1qXLNWoc_eGX9ggHkipaGk4vturCcSMT0)
+
+[Invert Database](https://drive.google.com/uc?export=download&id=1nrfBd7ypP4hPBgBNm1d56vpc8Cy8q0Q_)
+
+[Mammal Database](https://drive.google.com/uc?export=download&id=1WUv7XkLbjEAQW-iMA-ZQmh5VA1GcbNSt)
