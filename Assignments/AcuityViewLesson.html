@@ -372,7 +372,8 @@ pre code {
 
 <div id="install-packages" class="section level2">
 <h2>Install packages</h2>
-<p><code>First thing we need to do is install the required packages and load them!!</code>
+<p>First thing we need to do is install the required packages and load
+them!!
 <code>install.packages(&quot;AcuityView&quot;, &quot;fftwtools&quot;, &quot;imager&quot;)</code></p>
 </div>
 <div id="load-packages" class="section level2">
@@ -382,23 +383,32 @@ pre code {
 </div>
 <div id="choose-a-test-photo" class="section level2">
 <h2>Choose a test photo!</h2>
-<p><code>AcuityView requires an image that it will then render into the acuity you set it at, BUT this image needs to be a square where the dimensions are a power of two</code></p>
+<p>AcuityView requires an image that it will then render into the acuity
+you set it at, BUT this image needs to be a square where the dimensions
+are a power of two</p>
 <p><code>img &lt;- load.image(&#39;.../extdata/parrots.png&#39;)</code></p>
 <p><code>dim(img)</code></p>
 <p><code>img &lt;- resize(img, 110, 40)</code></p>
 </div>
 <div id="calculate-your-animals-acuity" class="section level2">
 <h2>Calculate your animal’s acuity</h2>
-<p><code>MRA --&gt; 1/CPD =</code> ` ## Run acuity view with your now
+<p><code>MRA --&gt; 1/CPD =</code> ` Now run acuity view with your now
 resized image!</p>
 <p><code>AcuityView(photo = NULL, distance = 2, realWidth = 2, eyeResolutionX = 8.14, eyeResolutionY = NULL, plot = T, output = &quot;firstimage.jpg&quot; )</code></p>
 </div>
 <div id="seminar-assignment" class="section level2">
 <h2>Seminar Assignment</h2>
-<p><code>1. Choose five animals from the databases given and calculate their acuity as MRA</code>
-<code>2. Choose an image that is applicable to each of your animals own ecology (1 image for each animal) and resize that image to 512x512 dimensions</code>
-<code>3. Create an output of your selected image at distance of 1 m, 2 m, and 3 m for your five animals</code>
-<code>4. Knit and publish R markdown file onto your website as &quot;seminar 1 assignment&quot;</code></p>
+<ol style="list-style-type: decimal">
+<li>Choose five animals from the databases given and calculate their
+acuity as MRA</li>
+<li>Choose an image that is applicable to each of your animals own
+ecology (1 image for each animal) and resize that image to 512x512
+dimensions</li>
+<li>Create an output of your selected image at distance of 1 m, 2 m, and
+3 m for your five animals</li>
+<li>Knit and publish R markdown file onto your website as “seminar 1
+assignment”</li>
+</ol>
 </div>
 <div id="files" class="section level2">
 <h2>Files</h2>
