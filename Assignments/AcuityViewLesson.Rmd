@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Install packages
 First thing we need to do is install the required packages/programs and load them!!
-Go to 
+Download [xquartz](https://www.xquartz.org/) if you have a mac 
 
 `install.packages("AcuityView")'
 'install.packages("magrittr")'
