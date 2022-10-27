@@ -13,7 +13,7 @@
 
 <meta name="date" content="2022-10-26" />
 
-<title>AcuityViewLesson</title>
+<title>AcuityView Lesson</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -363,7 +363,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">AcuityViewLesson</h1>
+<h1 class="title toc-ignore">AcuityView Lesson</h1>
 <h4 class="author">Tanner Mierow</h4>
 <h4 class="date">2022-10-26</h4>
 
@@ -372,9 +372,10 @@ pre code {
 
 <div id="install-packages" class="section level2">
 <h2>Install packages</h2>
-<p>First thing we need to do is install the required packages and load
-them!!
-<code>install.packages(&quot;AcuityView&quot;, &quot;fftwtools&quot;, &quot;imager&quot;)</code></p>
+<p>First thing we need to do is install the required packages/programs
+and load them!! Go to</p>
+<p>`install.packages(“AcuityView”)’ ‘install.packages(“magrittr”)’
+‘install.packages(“imager”)’ ‘install.packages(“fftwtools)’</p>
 </div>
 <div id="load-packages" class="section level2">
 <h2>Load packages:</h2>
@@ -388,13 +389,14 @@ you set it at, BUT this image needs to be a square where the dimensions
 are a power of two</p>
 <p><code>img &lt;- load.image(&#39;.../extdata/parrots.png&#39;)</code></p>
 <p><code>dim(img)</code></p>
-<p><code>img &lt;- resize(img, 110, 40)</code></p>
+<p><code>img &lt;- resize(img, 512, 512)</code></p>
 </div>
 <div id="calculate-your-animals-acuity" class="section level2">
 <h2>Calculate your animal’s acuity</h2>
 <p><code>MRA --&gt; 1/CPD =</code> ` Now run acuity view with your now
 resized image!</p>
-<p><code>AcuityView(photo = NULL, distance = 2, realWidth = 2, eyeResolutionX = 8.14, eyeResolutionY = NULL, plot = T, output = &quot;firstimage.jpg&quot; )</code></p>
+<p>Example:</p>
+<p><code>AcuityView(photo = img, distance = 2, realWidth = 2, eyeResolutionX = 8.14, eyeResolutionY = NULL, plot = T, output = &quot;firstimage.jpg&quot; )</code></p>
 </div>
 <div id="seminar-assignment" class="section level2">
 <h2>Seminar Assignment</h2>
@@ -406,8 +408,8 @@ ecology (1 image for each animal) and resize that image to 512x512
 dimensions</li>
 <li>Create an output of your selected image at distance of 1 m, 2 m, and
 3 m for your five animals</li>
-<li>Knit and publish R markdown file onto your website as “seminar 1
-assignment”</li>
+<li>Knit and publish R markdown file onto your website as “Mierow
+seminar assignment”</li>
 </ol>
 </div>
 <div id="files" class="section level2">
