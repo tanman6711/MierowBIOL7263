@@ -1,0 +1,27 @@
+---
+title: "West Lesson"
+author: "Tanner Mierow"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# Make Model
+
+View(SD_banding_data)
+banding <- SD_banding_data
+banding_na<-na.omit(banding)
+model <- glm(fat~species+mass+tarsus, data = banding_na, family=gaussian)
+
+# Check model output
+
+summary(model)
+
+# Run ANOVA 
+
+anova(model)
+
+# Get AIC scores
+AIC(model)
+AICc(model)
+
+# Get all model combos
+AICc_band_models <- dredge(model, rank = "AICc", fixed = "species")
