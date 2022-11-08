@@ -1,0 +1,39 @@
+---
+title: "Assignment6"
+author: "Tanner Mierow"
+date: "`r Sys.Date()`"
+output: html_document
+---
+1. Using my ebird dataset (https://github.com/mbtoomey/Biol_7263/blob/main/Data/MBT_ebird.csv?raw=true)
+First calculate the total number of species seen each month of each year in each location
+Then plot the number of species seen each month with the color of the points indicating year and facet this plot by location
+
+`sorted_ebird <- MBT_ebird %>% group_by(location, year, month) %>% summarize(n_distinct(common_name), .groups = "drop")`
+
+`species <- sorted_ebird$`n_distinct(common_name)``
+
+`ggplot(sorted_ebird, aes(x=month, y=species, color=year)) + geom_point() + facet_wrap(~location)`
+
+2. Plot a comparison of mass by treatment including the individual observations, the mean, and standard error of the mean. Use point color or shape to indicate the sex.
+
+`ggplot(Finaldoc, aes(x=Finaldoc$TreatmentType, y=Finaldoc$mass, color = Sex)) + geom_point() + stat_summary(geom = "point", fun.y = "mean", col = "black", size = 3, shape = 24, fill = "purple") +  stat_summary(geom = "errorbar", width = 0.3)`
+  
+3. Generate a scatter plot of age and mass, indicate treatment with point shape or color, and fit separate regression lines (without CI) to each treatment.
+
+`ggplot(Finaldoc, aes(x=Finaldoc$age, y=Finaldoc$mass, color = TreatmentType)) + geom_point() + stat_summary(geom = "point", fun.y = "mean", col = "black", size = 3, shape = 24, fill = "purple") + geom_smooth(method=lm, se=FALSE, fullrange=TRUE)`
+
+4. Combine the plots from 2 and 3 using patchwork tag each panel with and number or letter and include a title for the overall plot.
+
+`p1 <- ggplot(Finaldoc, aes(x=Finaldoc$TreatmentType, y=Finaldoc$mass, color = Sex)) + geom_point() + stat_summary(geom = "point", fun = "mean", col = "black", size = 3, shape = 24, fill = "purple") +  stat_summary(geom = "errorbar", width = 0.3)`
+
+`p2 <- ggplot(Finaldoc, aes(x=Finaldoc$age, y=Finaldoc$mass, color = TreatmentType)) + geom_point() + stat_summary(geom = "point", fun = "mean", col = "black", size = 3, shape = 24, fill = "purple") + geom_smooth(method=lm, se=FALSE, fullrange=TRUE)`
+
+`install.packages("patchwork")`
+`library("patchwork")`
+`p1 + p2 + plot_annotation(title = "mass by age and treatment type", tag_levels = "1")`
+
+
+
+
+
+
