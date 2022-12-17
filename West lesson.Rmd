@@ -4,6 +4,15 @@ author: "Tanner Mierow"
 date: "`r Sys.Date()`"
 output: html_document
 ---
+# Install Pakcages
+install.packages("MuMIn") 
+
+#Stands for Multi-Model Inference
+#Calculates AICc scores
+#Automated model generation
+
+install.packages("AICcmodavg")
+
 # Make Model
 
 View(SD_banding_data)
@@ -11,10 +20,22 @@ banding <- SD_banding_data
 banding_na<-na.omit(banding)
 model <- glm(fat~species+mass+tarsus, data = banding_na, family=gaussian)
 
+band_model<- glm(fat~species+mass+tarsus, data = banding_na, family=gaussian,
+                 na.action = na.fail)
+                 
+AICc_band_models <- dredge( #construct all possible models
+  band_model,    #use band model as a reference
+  rank = "AICc", #use AICc scores to compare
+  fixed = "species")
+
 # Check model output
 
 summary(model)
 
+# Get model list
+model_list <- get.models(AICc_band_models, #retrieve models from dredged data
+                              subset = TRUE)
+model_list[1]
 # Run ANOVA 
 
 anova(model)
@@ -25,3 +46,19 @@ AICc(model)
 
 # Get all model combos
 AICc_band_models <- dredge(model, rank = "AICc", fixed = "species")
+
+# Make model name list
+model_name_list<-NULL
+
+for (i in 1:10){
+  model_name_list = c(model_name_list, as.character(model_list[[i]][['formula']]))
+}
+
+model_name_listb <- model_name_list[seq(3, length(model_name_list), 3)]
+# Make AIC table 
+modavg_table<-aictab(model_list,
+                     modnames = model_name_list,
+                     second.ord = TRUE,
+                     sort = TRUE)
+modavg_table
+

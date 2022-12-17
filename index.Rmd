@@ -34,4 +34,8 @@ Animals have to intake sensory information from their environment and use sensor
 | 10/11 | Homework 6 | [Assignment6](Assignments/Assignment6.html)
 | 10/18 | Homework 7 | [Assignment7](Assignments/Assignment-7.html)
 | 10/24 | Seminar Lec| [SeminarLec](Assignments/AcuityViewLesson.html)
+| 12/01 | Seminar lesson 1 | [WestLesson](Assignments/WestLesson.html)
+| 12/01 | Seminar Lesson 2 | [PaslayLesson](Assignments/PaslayLesson.html)
+| 12/01 | Seminar Lesson 3 | [HerrboldtLesson](Assignments/HerrboldtLesson.html)
+
 

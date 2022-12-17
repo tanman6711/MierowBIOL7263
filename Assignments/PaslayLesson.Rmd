@@ -1,0 +1,38 @@
+---
+title: "PaslayLesson"
+author: "Tanner Mierow"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# Load packages
+install.packages("rentrez")
+install.packages("glue")
+
+
+
+library(rentrez)
+library(tidyverse)
+library(ggplot2)
+library(glue)
+
+# Summary of taxonomy database
+entrez_db_summary(db = "taxonomy")
+
+# Set search terms
+entrez_db_searchable("taxonomy")
+
+# Create search 
+AMV_search <- entrez_search(db = "taxonomy", 
+                            term = "lethocerus", retmax = 20)
+AMV_search
+
+# Create plot
+search_year <- function(year, term){
+  query <- paste(term, "AND (", year, "[PDAT])") 
+  entrez_search(db="pubmed", term=query, retmax=0)$count
+}
+
+year <- 1920:2020
+papers <- sapply(year, search_year, term="lethocerus", USE.NAMES = FALSE)
+plot(year, papers, type='b', main="Letho Publications from 1920 to 2020")
+
