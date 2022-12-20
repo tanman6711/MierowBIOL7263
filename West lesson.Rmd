@@ -8,6 +8,7 @@ output: html_document
 ```{r}
 library(AICcmodavg)
 library(MuMIn)
+library(readr)
 ```
 
 # Make Model
