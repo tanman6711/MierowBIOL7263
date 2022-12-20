@@ -4,10 +4,16 @@ author: "Tanner Mierow"
 date: "`r Sys.Date()`"
 output: html_document
 ---
-
+# Load library
+```{r}
+library(readr)
+library(ggplot2)
+```
 # Create data variable
 ```{r}
-AssignmentData<- MAH_assignment_data
+MAH_assignment_data <- read_csv("MAH_assignment_data.csv")
+
+AssignmentData <- MAH_assignment_data
 ```
 # Create GG plot with assignment data
 ```{r}
