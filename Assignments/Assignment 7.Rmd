@@ -4,94 +4,137 @@ author: "Tanner Mierow"
 date: "2022-09-01"
 output: html_document
 ---
-We started from the bottom (no r knowledge) and now we here
+# Load libraries
+```{r}
+library(dismo)
+library(geosphere)
+library(raster)
+library(sp)
 
+setwd("~/MierowBIOL7263/GIS_Lecture")
+```
 # Build climate stack and plot it 
-> `my_clim_stack <- stack(raster('wc2.1_10m_bio_12.tif'), raster('wc2.1_10m_bio_18.tif'), raster('wc2.1_10m_bio_19.tif'))`
-> `my_clim_stack <- stack(raster('WORLDCLIM_Rasters/wc2.1_10m_bio_12.tif'), raster('WORLDCLIM_Rasters/wc2.1_10m_bio_18.tif'), raster('WORLDCLIM_Rasters/wc2.1_10m_bio_19.tif'))`
-> `names(my_clim_stack) <- c("annual_precipitation", "precip_warmest_qrtr", "precip_coldest_qrtr")`
-> `plot(my_clim_stack)`
+```{r}
+my_clim_stack <- stack(raster('WORLDCLIM_Rasters/wc2.1_10m_bio_12.tif'), raster('WORLDCLIM_Rasters/wc2.1_10m_bio_18.tif'), raster('WORLDCLIM_Rasters/wc2.1_10m_bio_19.tif'))
 
+my_clim_stack <- stack(raster('WORLDCLIM_Rasters/wc2.1_10m_bio_12.tif'), raster('WORLDCLIM_Rasters/wc2.1_10m_bio_18.tif'), raster('WORLDCLIM_Rasters/wc2.1_10m_bio_19.tif'))
+
+names(my_clim_stack) <- c("annual_precipitation", "precip_warmest_qrtr", "precip_coldest_qrtr")
+plot(my_clim_stack)
+```
 # Choose sites
-> `my_sites <- as.data.frame(click(n=10))`
+```{r}
+my_sites <- as.data.frame(click(n=10))
+```
 # Look at sites
-> `names(my_sites) <- c('longitude', 'latitude')`
-`my_sites`
+```{r}
+names(my_sites) <- c('longitude', 'latitude')
+my_sites
+```
 # extract dat from sites
-`env <- as.data.frame(extract(my_clim_stack, my_sites))`
-`env`
+```{r}
+env <- as.data.frame(extract(my_clim_stack, my_sites))
+env
+```
 # join env and ur sites data
-`my_sites <- cbind(my_sites, env)`
-`my_sites`
+```{r}
+my_sites <- cbind(my_sites, env)
+my_sites
+```
 # Make projection file
-`myCrs <- projection(my_clim_stack) # get projection info`
-
+```{r}
+myCrs <- projection(my_clim_stack) # get projection info
+```
 # make into points file
-`my_sites_shape <- SpatialPointsDataFrame(coords=my_sites, data=my_sites, proj4string=CRS(myCrs))`
-`my_sites_shape`
+```{r}
+my_sites_shape <- SpatialPointsDataFrame(coords=my_sites, data=my_sites, proj4string=CRS(myCrs))
+
+my_sites_shape
+```
 
 #Plot raster with points
-`plot(my_clim_stack[[2]])`
-`points(my_sites_shape, pch=16)`
+```{r}
+plot(my_clim_stack[[2]])
+
+points(my_sites_shape, pch=16)
+```
 
 # Generate set of random points for comparions to our selected points/locations
+```{r}
+bg <- as.data.frame(randomPoints(my_clim_stack, n = 10000))
 
-`bg <- as.data.frame(randomPoints(my_clim_stack, n = 10000))`
-`head(bg)`
+head(bg)
+```
 # Name points
-`names(bg) <- c("longitude", "latitude")`
-`head(bg)`
+```{r}
+names(bg) <- c("longitude", "latitude")
+
+head(bg)
+```
 # Plot points
-`plot(my_clim_stack[[2]])`
-`points(bg, pch='.')`
+```{r}
+plot(my_clim_stack[[2]])
 
+points(bg, pch='.')
+```
 # Extract data points
-`bgEnv <- as.data.frame(extract(my_clim_stack, bg))`
-`head(bgEnv)`
+```{r}
+bgEnv <- as.data.frame(extract(my_clim_stack, bg))
 
+head(bgEnv)
+```
 #Train model 
-`pres.bg <- c(rep(1, nrow(my_sites)), rep(0, nrow(bg)))`
-`train_data <- data.frame(pres.bg = pres.bg, rbind(my_sites, bg))`
+```{r}
+pres.bg <- c(rep(1, nrow(my_sites)), rep(0, nrow(bg)))
 
+train_data <- data.frame(pres.bg = pres.bg, rbind(my_sites, bg))
+```
 # the model
-`my_model <- glm(pres.bg ~ annual_precipitation*precip_warmest_qrtr*precip_coldest_qrtr + I(annual_precipitation^2) + I(precip_warmest_qrtr^2) + I(precip_coldest_qrtr^2),
+```{r}
+my_model <- glm(pres.bg ~ annual_precipitation*precip_warmest_qrtr*precip_coldest_qrtr + I(annual_precipitation^2) + I(precip_warmest_qrtr^2) + I(precip_coldest_qrtr^2),
 data = train_data, 
 family = "binomial", 
-weights = c(rep(1,  nrow(my_sites)), rep(nrow(my_sites)/nrow(bg), nrow(bg))))`
+weights = c(rep(1,  nrow(my_sites)), rep(nrow(my_sites)/nrow(bg), nrow(bg))))
 
-`Summary(model)`
+Summary(model)
 
-`my_world <- predict(
+my_world <- predict(
 my_clim_stack,
 my_model,
 type = "response"
 )
-)`
-
+)
+```
 #plot world
-`plot(my_world)`
-`points(my_sites_shape, pch=16)`
-
+```{r}
+plot(my_world)
+points(my_sites_shape, pch=16)
+```
 #save your world
-`writeRaster(my_world, "My_climate_space/my_world", format = "GTiff", overwrite = TRUE, progess = "text")`
-
+```{r}
+writeRaster(my_world, "My_climate_space/my_world", format = "GTiff", overwrite = TRUE, progess = "text")
+```
 # Threshold preferred regions
+```{r}
 
-`my_world_threshold <- my_world >= quantile(my_world, 0.75)`
-`plot(my_world_threshold)`
-
-# compare my climate to the world
+my_world_threshold <- my_world >= quantile(my_world, 0.75)
+plot(my_world_threshold)
+```
 
 ##convert all values not equal to 1 to NA
-`my_world_threshold <- calc(my_world_threshold, fun=function(x) ifelse(x==0|is.na(x), NA, 1))`
+```{r}
+my_world_threshold <- calc(my_world_threshold, fun=function(x) ifelse(x==0|is.na(x), NA, 1))
+```
 # add radnom points to my best sites/env
+```{r}
+my_best_sites <- randomPoints(my_world_threshold, 10000)
 
-`my_best_sites <- randomPoints(my_world_threshold, 10000)`
-`my_best_env <- as.data.frame(extract(my_clim_stack, my_best_sites))`
-
+my_best_env <- as.data.frame(extract(my_clim_stack, my_best_sites))
+```
 #plot values
-
-`smoothScatter(x=bgEnv$annual_precipitation, y=bgEnv$precip_warmest_qrtr, col = "purple")
+```{r}
+smoothScatter(x=bgEnv$annual_precipitation, y=bgEnv$precip_warmest_qrtr, col = "purple")
 points(my_best_env$annual_precipitation, my_best_env$precip_warmest_qrtr, col = "red", pch=16, cex=0.2)
 points(my_sites$annual_precipitation, my_sites$precip_warmest_qrtr, pch=16)
-legend("bottomright", inset=0.01,legend=c("world", "my niche", "my locations"), pch = 16, col = c("purple", "red", "black"), pt.cex = c(1,0.4,1))`
+legend("bottomright", inset=0.01,legend=c("world", "my niche", "my locations"), pch = 16, col = c("purple", "red", "black"), pt.cex = c(1,0.4,1))
+```

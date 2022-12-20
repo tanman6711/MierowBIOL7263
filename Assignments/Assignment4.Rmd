@@ -4,37 +4,53 @@ author: "Tanner Mierow"
 date: "`r Sys.Date()`"
 output: html_document
 ---
+```{r}
 library(tidyverse)
 library(dplyr)
-MBT_ebird<-read_csv("https://github.com/mbtoomey/Biol_7263/blob/main/Data/MBT_ebird.csv?raw=true")
+library(readr)
+MBT_ebird<- read_csv("https://github.com/mbtoomey/Biol_7263/blob/main/Data/MBT_ebird.csv?raw=true")
+```
+## 1. In which year did I observe the most individual birds? How many?
+```{r}
+year_data <- group_by(MBT_ebird, year)
 
-1. In which year did I observe the most individual birds? How many?
-`year_data <- group_by(MBT_ebird, year)
-summarize(year_data, sum(count))`
+summarize(year_data, sum(count))
+```
 The year you observed the most birds was 2014 when you observed 9303 birds
 
-2. In that year how many different species of birds did I observe?
-`species_year <- filter(MBT_ebird, year == 2014)
-mutate(species_year, SpeciesNum = n_distinct(scientific_name))`
+
+##2. In that year how many different species of birds did I observe?
+```{r}
+species_year <- filter(MBT_ebird, year == 2014)
+
+mutate(species_year, SpeciesNum = n_distinct(scientific_name))
+```
 That year you observed 210 unique species of birds 
 
-3. In which state did I most frequently observe Red-winged Blackbirds?
-`state_data <- filter(MBT_ebird, scientific_name == "Agelaius phoeniceus")
+##3. In which state did I most frequently observe Red-winged Blackbirds?
+```{r}
+state_data <- filter(MBT_ebird, scientific_name == "Agelaius phoeniceus")
+
 state_data2014 <- filter(state_data, year == 2014)
-state_dataGrouped <- state_data2014 %>% group_by(location)`
+
+state_dataGrouped <- state_data2014 %>% group_by(location)
+```
 Missouri is the state you most frequently observed red-winged blackbirds
 
-4. Filter observations for a duration between 5 and 200 minutes. Calculate the mean rate per checklist that I encounter species each year. Specifically, calculate the number of species in each checklist divided by duration and then take the mean for the year.
-
-`Mean_data <- filter(MBT_ebird, duration > 5, duration < 200)
+## 4. Filter observations for a duration between 5 and 200 minutes. Calculate the mean rate per checklist that I encounter species each year. Specifically, calculate the number of species in each checklist divided by duration and then take the mean for the year.
+```{r}
+Mean_data <- filter(MBT_ebird, duration > 5, duration < 200)
 mutated_Mean_data <- Mean_data %>% mutate(rate = n_distinct(common_name)/duration)
+
 mutated_Mean_data2 <- mutated_Mean_data %>% group_by(year) %>%
                       mutate(year_mean = mean(rate))
-View(mutated_Mean_data2)`
 
-5. Create a tibble that includes the complete observations for the top 10 most frequently observed species. First generate a top 10 list and then use this list to filter all observations. Export this tibble as a .csv file saved to a folder called “Results” folder within your R project and add link to the markdown document.
+View(mutated_Mean_data2)
+```
+## 5. Create a tibble that includes the complete observations for the top 10 most frequently observed species. First generate a top 10 list and then use this list to filter all observations. Export this tibble as a .csv file saved to a folder called “Results” folder within your R project and add link to the markdown document.
+```{r}
+top10table <- MBT_ebird %>% count(scientific_name) %>% arrange(by = (desc(n))) %>% slice_head(n = 10)
 
-`top10table <- MBT_ebird %>% count(scientific_name) %>% arrange(by = (desc(n))) %>% slice_head(n = 10)
-write_csv(top10table, "Users/tannermierow/MierowBIOL7263/Results")`
-
+top10table
+```
 

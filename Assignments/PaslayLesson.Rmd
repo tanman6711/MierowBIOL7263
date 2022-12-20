@@ -5,28 +5,29 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 # Load packages
-install.packages("rentrez")
-install.packages("glue")
-
-
-
+```{r}
 library(rentrez)
 library(tidyverse)
 library(ggplot2)
 library(glue)
+```
 
 # Summary of taxonomy database
+```{r}
 entrez_db_summary(db = "taxonomy")
-
+```
 # Set search terms
+```{r}
 entrez_db_searchable("taxonomy")
-
+```
 # Create search 
+```{r}
 AMV_search <- entrez_search(db = "taxonomy", 
                             term = "lethocerus", retmax = 20)
 AMV_search
-
+```
 # Create plot
+```{r}
 search_year <- function(year, term){
   query <- paste(term, "AND (", year, "[PDAT])") 
   entrez_search(db="pubmed", term=query, retmax=0)$count
@@ -35,4 +36,5 @@ search_year <- function(year, term){
 year <- 1920:2020
 papers <- sapply(year, search_year, term="lethocerus", USE.NAMES = FALSE)
 plot(year, papers, type='b', main="Letho Publications from 1920 to 2020")
+```
 

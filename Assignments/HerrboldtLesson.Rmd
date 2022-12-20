@@ -6,15 +6,17 @@ output: html_document
 ---
 
 # Create data variable
+```{r}
 AssignmentData<- MAH_assignment_data
-
+```
 # Create GG plot with assignment data
+```{r}
 ggplot(AssignmentData,
        aes(x = Sample, y = Gene, fill = Expression)) +
 geom_tile()
-
+```
 # Create heat map!
-
+```{r}
 ggplot(AssignmentData,
        aes(x = Sample, y = Gene, fill = Expression)) +
   geom_tile(colour = "black", linewidth = 0.5) +
@@ -28,3 +30,4 @@ ggplot(AssignmentData,
         plot.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         axis.title = element_text(face = "bold"))
+```

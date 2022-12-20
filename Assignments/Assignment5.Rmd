@@ -4,22 +4,30 @@ author: "Tanner Mierow"
 date: "`r Sys.Date()`"
 output: html_document
 ---
+# Upload files
+```{r}
+library(dplyr)
+library(readr)
+library(tidyr)
 
-`part1 <- read_csv("https://raw.githubusercontent.com/mbtoomey/Biol_7263/main/Data/assignment6part1.csv")`
-`part2 <- read_csv("https://raw.githubusercontent.com/mbtoomey/Biol_7263/main/Data/assignment6part2.csv")`
+part1 <- read_csv("https://raw.githubusercontent.com/mbtoomey/Biol_7263/main/Data/assignment6part1.csv")
 
-1. Pivot and merge these two data sets into a single tidy tibble. Export this tibble as a .csv file saved to a folder called “Results” folder within your R project.
+part2 <- read_csv("https://raw.githubusercontent.com/mbtoomey/Biol_7263/main/Data/assignment6part2.csv")
+```
 
-`part1NEW <- part1  %>% pivot_longer(cols = "Sample1_Male_Control":"Sample20_Female_Treatment", names_to = c("Sample#", "Sex", "TreatmentType"), names_sep = "_", values_drop_na = TRUE) %>% pivot_wider(names_from = ID, values_from = value)`
+# 1. Pivot and merge these two data sets into a single tidy tibble. Export this tibble as a .csv file saved to a folder called “Results” folder within your R project.
+```{r}
+part1NEW <- part1  %>% pivot_longer(cols = "Sample1_Male_Control":"Sample20_Female_Treatment", names_to = c("Sample#", "Sex", "TreatmentType"), names_sep = "_", values_drop_na = TRUE) %>% pivot_wider(names_from = ID, values_from = value)
 
-`part2NEW <- part2 %>% pivot_longer(cols = "Sample16.Treatment":"Sample13.Control", names_to = c("Sample#", "TreatmentType"), names_sep = "\\.", values_drop_na = TRUE) %>% pivot_wider(names_from = ID, values_from = value)`
+part2NEW <- part2 %>% pivot_longer(cols = "Sample16.Treatment":"Sample13.Control", names_to = c("Sample#", "TreatmentType"), names_sep = "\\.", values_drop_na = TRUE) %>% pivot_wider(names_from = ID, values_from = value)
 
-`Finaldoc <- part1NEW %>% full_join(part2NEW, by = c("Sample#", "TreatmentType"))`
+Finaldoc <- part1NEW %>% full_join(part2NEW, by = c("Sample#", "TreatmentType"))
 
-`write_csv(Finaldoc, "~/MierowBIOL7263/Results")`
+Finaldoc
+```
+# 2. With this tidy tibble, generate a new tibble of the mean +/- standard deviation of the residual mass (mass/body length) by treatment and sex. Export this tibble as a .csv file saved to a folder called “Results” folder within your R project.
+```{r}
+part2DOC <- Finaldoc %>% mutate(residual_mass = mass/body_length) %>% group_by(Sex, TreatmentType) %>% summarise(mean = mean(residual_mass, na.rm = TRUE), StandardDev = sd(residual_mass, na.rm = TRUE))
 
-2. With this tidy tibble, generate a new tibble of the mean +/- standard deviation of the residual mass (mass/body length) by treatment and sex. Export this tibble as a .csv file saved to a folder called “Results” folder within your R project.
-
-`part2DOC <- Finaldoc %>% mutate(residual_mass = mass/body_length) %>% group_by(Sex, TreatmentType) %>% summarise(mean = mean(residual_mass, na.rm = TRUE), StandardDev = sd(residual_mass, na.rm = TRUE))`
-
-`write_csv(part2DOC, "~/MierowBIOL7263/Results")`
+part2DOC
+```
